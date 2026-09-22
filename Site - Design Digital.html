@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design Digital — Exposição Escolar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #2453E8;
+    --blue-bright: #4C7CFF;
+    --blue-deep: #0C1638;
+    --blue-deep-2: #101E4D;
+    --cyan: #4FD8FF;
+    --bg: #F4F6FD;
+    --bg-card: #FFFFFF;
+    --text: #10132A;
+    --text-soft: #4A5170;
+    --text-inverse: #F4F6FD;
+    --text-inverse-soft: #AEB8E0;
+    --shadow-soft: 0 10px 30px rgba(12, 22, 56, 0.10);
+    --shadow-nav: 0 8px 24px rgba(12, 22, 56, 0.12);
+    --radius: 18px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --blue: #2453E8;
+      --blue-bright: #4C7CFF;
+      --blue-deep: #0C1638;
+      --blue-deep-2: #101E4D;
+      --cyan: #4FD8FF;
+      --bg: #F4F6FD;
+      --bg-card: #FFFFFF;
+      --text: #10132A;
+      --text-soft: #4A5170;
+      --text-inverse: #F4F6FD;
+      --text-inverse-soft: #AEB8E0;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: calc(78px + env(safe-area-inset-top, 0px));
+  }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', system-ui, sans-serif;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+    margin: 0;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  img, svg { max-width: 100%; }
+
+  section {
+    scroll-margin-top: calc(78px + env(safe-area-inset-top, 0px));
+  }
+
+  /* ---------- NAVBAR ---------- */
+
+  .navbar {
+    position: fixed;
+    top: env(safe-area-inset-top, 0px);
+    left: 0;
+    right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 6vw;
+    background: rgba(244, 246, 253, 0.7);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: box-shadow 0.4s ease, padding 0.4s ease, background 0.4s ease;
+  }
+
+  .navbar.scrolled {
+    box-shadow: var(--shadow-nav);
+    padding: 10px 6vw;
+    background: rgba(244, 246, 253, 0.92);
+  }
+
+  .nav-logo {
+    font-weight: 600;
+    font-size: 1.05rem;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-logo .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    box-shadow: 0 0 0 4px rgba(36, 83, 232, 0.14);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.4vw;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-links a {
+    position: relative;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-soft);
+    padding: 6px 2px;
+    transition: color 0.3s ease;
+  }
+
+  .nav-links a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--blue), var(--cyan));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(.4,0,.2,1);
+  }
+
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a:hover::after,
+  .nav-links a.active::after { transform: scaleX(1); }
+  .nav-links a.active { color: var(--text); }
+
+  /* ---------- HERO ---------- */
+
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background:
+      radial-gradient(ellipse 80% 60% at 20% 15%, rgba(76, 124, 255, 0.35), transparent 60%),
+      radial-gradient(ellipse 70% 60% at 85% 85%, rgba(79, 216, 255, 0.22), transparent 60%),
+      linear-gradient(160deg, var(--blue-deep) 0%, var(--blue-deep-2) 100%);
+    color: var(--text-inverse);
+    padding: 120px 6vw 80px;
+    overflow: hidden;
+  }
+
+  .hero-shapes {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.9;
+  }
+
+  .hero-shapes .ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(79, 216, 255, 0.25);
+    animation: spin-slow 60s linear infinite;
+  }
+
+  .ring.r1 { width: 480px; height: 480px; top: -140px; right: -120px; }
+  .ring.r2 { width: 320px; height: 320px; top: 60%; left: -80px; animation-direction: reverse; animation-duration: 46s; }
+
+  .hero-shapes .pixel {
+    position: absolute;
+    border-radius: 5px;
+    background: linear-gradient(135deg, var(--blue-bright), var(--cyan));
+    opacity: 0.55;
+    animation: float-y 7s ease-in-out infinite;
+  }
+
+  .p1 { width: 14px; height: 14px; top: 22%; left: 14%; animation-delay: 0s; }
+  .p2 { width: 22px; height: 22px; top: 68%; left: 22%; animation-delay: 1.2s; }
+  .p3 { width: 10px; height: 10px; top: 30%; right: 20%; animation-delay: 0.6s; }
+  .p4 { width: 18px; height: 18px; top: 75%; right: 16%; animation-delay: 2s; }
+  .p5 { width: 12px; height: 12px; top: 50%; right: 32%; animation-delay: 1.6s; }
+
+  @keyframes float-y {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-22px); }
+  }
+
+  @keyframes spin-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .hero-eyebrow {
+    position: relative;
+    z-index: 1;
+    font-size: 0.95rem;
+    color: var(--text-inverse-soft);
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.1s;
+  }
+
+  .hero h1 {
+    position: relative;
+    z-index: 1;
+    font-size: clamp(3rem, 10vw, 7.5rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.03em;
+    background: linear-gradient(100deg, #FFFFFF 30%, var(--cyan) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    opacity: 0;
+    animation: rise 1s ease forwards 0.25s;
+  }
+
+  .hero p {
+    position: relative;
+    z-index: 1;
+    max-width: 540px;
+    margin: 26px auto 0;
+    font-size: 1.08rem;
+    line-height: 1.6;
+    color: var(--text-inverse-soft);
+    opacity: 0;
+    animation: rise 0.9s ease forwards 0.45s;
+  }
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .scroll-cue {
+    position: absolute;
+    bottom: 38px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-inverse-soft);
+    font-size: 0.8rem;
+    z-index: 1;
+  }
+
+  .scroll-cue .line {
+    width: 1px;
+    height: 34px;
+    background: linear-gradient(var(--cyan), transparent);
+    animation: cue-move 1.8s ease-in-out infinite;
+  }
+
+  @keyframes cue-move {
+    0%, 100% { transform: scaleY(1); opacity: 0.5; }
+    50% { transform: scaleY(1.3); opacity: 1; }
+  }
+
+  /* ---------- SHARED SECTION STYLES ---------- */
+
+  .section {
+    padding: 120px 6vw;
+  }
+
+  .section-dark {
+    background: linear-gradient(180deg, var(--blue-deep-2), var(--blue-deep));
+    color: var(--text-inverse);
+  }
+
+  .eyebrow {
+    font-size: 0.92rem;
+    color: var(--blue);
+    font-weight: 500;
+    margin-bottom: 14px;
+  }
+
+  .section-dark .eyebrow { color: var(--cyan); }
+
+  .section h2 {
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    letter-spacing: -0.02em;
+    font-weight: 600;
+    max-width: 620px;
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.8s cubic-bezier(.2,.6,.2,1), transform 0.8s cubic-bezier(.2,.6,.2,1);
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---------- CONCEITO ---------- */
+
+  .conceito-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 6vw;
+    align-items: center;
+    margin-top: 56px;
+  }
+
+  .conceito-grid p {
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    max-width: 46ch;
+  }
+
+  .conceito-grid p + p { margin-top: 18px; }
+
+  .conceito-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grid-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    padding: 30px;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+  }
+
+  .grid-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(12, 22, 56, 0.16);
+  }
+
+  /* ---------- ÁREAS ---------- */
+
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .area-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(174, 184, 224, 0.18);
+    border-radius: var(--radius);
+    padding: 32px;
+    transition: transform 0.45s ease, background 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  .area-card:hover {
+    transform: translateY(-6px);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  .area-icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 20px;
+  }
+
+  .area-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .area-card p {
+    color: var(--text-inverse-soft);
+    line-height: 1.65;
+    font-size: 0.98rem;
+    margin: 0;
+  }
+
+  /* ---------- EQUIPE ---------- */
+
+  .equipe-list {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+    margin-top: 56px;
+  }
+
+  .membro-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    padding: 28px 20px;
+    text-align: center;
+    transition: transform 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  .membro-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(12, 22, 56, 0.16);
+  }
+
+  .membro-avatar {
+    width: 54px;
+    height: 54px;
+    margin: 0 auto 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--cyan));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
+  .membro-card span {
+    display: block;
+    font-weight: 600;
+    font-size: 0.98rem;
+  }
+
+  .membro-card small {
+    display: block;
+    margin-top: 4px;
+    color: var(--text-soft);
+    font-size: 0.82rem;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  footer {
+    background: var(--blue-deep);
+    color: var(--text-inverse-soft);
+    padding: 56px 6vw 40px;
+  }
+
+  .footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(174, 184, 224, 0.15);
+    padding-bottom: 32px;
+  }
+
+  .footer-school {
+    color: var(--text-inverse);
+    font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600;
+    font-size: 1.15rem;
+    max-width: 320px;
+    line-height: 1.4;
+  }
+
+  .footer-names {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    max-width: 420px;
+  }
+
+  .footer-names span {
+    font-size: 0.92rem;
+    color: var(--text-inverse-soft);
+  }
+
+  .footer-bottom {
+    margin-top: 26px;
+    font-size: 0.82rem;
+    color: rgba(174, 184, 224, 0.65);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+
+  @media (max-width: 880px) {
+    .nav-links { gap: 5vw; }
+    .conceito-grid { grid-template-columns: 1fr; }
+    .conceito-visual { max-width: 320px; margin: 0 auto; }
+    .areas-grid { grid-template-columns: 1fr; }
+    .equipe-list { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 540px) {
+    .navbar { padding: 14px 5vw; }
+    .nav-links { gap: 4vw; font-size: 0.85rem; }
+    .section { padding: 90px 6vw; }
+    .equipe-list { grid-template-columns: 1fr 1fr; }
+    .footer-top { flex-direction: column; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+    html { scroll-behavior: auto; }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-logo"><span class="dot"></span>Design Digital</div>
+  <ul class="nav-links">
+    <li><a href="#inicio" class="active">Início</a></li>
+    <li><a href="#conceito">Conceito</a></li>
+    <li><a href="#areas">Áreas</a></li>
+    <li><a href="#equipe">Equipe</a></li>
+  </ul>
+</nav>
+
+<section class="hero" id="inicio">
+  <div class="hero-shapes">
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+    <div class="pixel p1"></div>
+    <div class="pixel p2"></div>
+    <div class="pixel p3"></div>
+    <div class="pixel p4"></div>
+    <div class="pixel p5"></div>
+  </div>
+  <p class="hero-eyebrow">Exposição escolar</p>
+  <h1>Design<br>Digital</h1>
+  <p>Como pixels, telas e interfaces se tornaram a linguagem visual do nosso tempo.</p>
+  <div class="scroll-cue"><span>role para explorar</span><span class="line"></span></div>
+</section>
+
+<section class="section" id="conceito">
+  <div class="reveal">
+    <p class="eyebrow">Conceito</p>
+    <h2>O que é Design Digital?</h2>
+  </div>
+  <div class="conceito-grid">
+    <div class="reveal">
+      <p>Design Digital é a prática de projetar experiências visuais e interativas para telas — sites, aplicativos, jogos e produtos conectados. Ele une estética, tecnologia e comportamento humano em um mesmo processo de criação.</p>
+      <p>Diferente do design impresso, o design digital lida com movimento, resposta e escala: uma mesma peça pode se adaptar a um celular, um computador ou um painel de exposição, mudando de forma sem perder identidade.</p>
+    </div>
+    <div class="conceito-visual reveal">
+      <div class="grid-card">
+        <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="90" height="90" rx="12" fill="#2453E8" opacity="0.9"/>
+          <rect x="120" y="10" width="90" height="90" rx="12" fill="#4FD8FF" opacity="0.85"/>
+          <rect x="10" y="120" width="90" height="90" rx="12" fill="#4C7CFF" opacity="0.75"/>
+          <circle cx="165" cy="165" r="45" fill="#0C1638" opacity="0.9"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section section-dark" id="areas">
+  <div class="reveal">
+    <p class="eyebrow">Panorama</p>
+    <h2>Áreas do Design Digital</h2>
+  </div>
+  <div class="areas-grid">
+    <div class="area-card reveal">
+      <svg class="area-icon" viewBox="0 0 42 42" fill="none"><rect x="4" y="4" width="34" height="24" rx="4" stroke="#4FD8FF" stroke-width="2"/><path d="M14 34h14" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round"/><path d="M21 28v6" stroke="#4FD8FF" stroke-width="2"/></svg>
+      <h3>UI &amp; UX Design</h3>
+      <p>Planejamento de interfaces e fluxos que tornam sites e aplicativos fáceis de entender e usar.</p>
+    </div>
+    <div class="area-card reveal">
+      <svg class="area-icon" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="16" stroke="#4FD8FF" stroke-width="2"/><path d="M21 13v8l6 4" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round"/></svg>
+      <h3>Motion Design</h3>
+      <p>Animações e transições que dão ritmo, clareza e personalidade às interações na tela.</p>
+    </div>
+    <div class="area-card reveal">
+      <svg class="area-icon" viewBox="0 0 42 42" fill="none"><path d="M21 5l16 9v14l-16 9-16-9V14z" stroke="#4FD8FF" stroke-width="2" stroke-linejoin="round"/></svg>
+      <h3>Marca Digital</h3>
+      <p>Construção de identidades visuais pensadas para aparecer em telas, redes sociais e produtos.</p>
+    </div>
+    <div class="area-card reveal">
+      <svg class="area-icon" viewBox="0 0 42 42" fill="none"><rect x="6" y="6" width="30" height="30" rx="6" stroke="#4FD8FF" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="#4FD8FF"/><path d="M12 30l8-8 5 5 7-9" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <h3>Ilustração Digital</h3>
+      <p>Criação de imagens originais direto em softwares e tablets, para dar identidade visual ao conteúdo.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="equipe">
+  <div class="reveal">
+    <p class="eyebrow">Quem fez</p>
+    <h2>Equipe do projeto</h2>
+  </div>
+  <div class="equipe-list">
+    <div class="membro-card reveal"><div class="membro-avatar">AH</div><span>Arthur Henrique</span></div>
+    <div class="membro-card reveal"><div class="membro-avatar">AC</div><span>Artur Cho</span></div>
+    <div class="membro-card reveal"><div class="membro-avatar">BC</div><span>Bruno Constantino</span></div>
+    <div class="membro-card reveal"><div class="membro-avatar">DS</div><span>Denis Sorban</span></div>
+    <div class="membro-card reveal"><div class="membro-avatar">RB</div><span>Rickelmy Bahia</span></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-school">ETEC Professor Camargo Aranha</div>
+    <div class="footer-names">
+      <span>Arthur Henrique</span>
+      <span>Artur Cho</span>
+      <span>Bruno Constantino</span>
+      <span>Denis Sorban</span>
+      <span>Rickelmy Bahia</span>
+    </div>
+  </div>
+  <div class="footer-bottom">Projeto de exposição escolar — tema Design Digital.</div>
+</footer>
+
+<script>
+  // sombra + recolhimento da navbar ao rolar
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  // realce do link ativo conforme a seção visível
+  const navLinks = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+
+  const navObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      }
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+
+  sections.forEach(section => navObserver.observe(section));
+
+  // animações de entrada ao rolar
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.style.transitionDelay = (i % 4) * 0.08 + 's';
+    revealObserver.observe(el);
+  });
+</script>
+
+</body>
+</html>
