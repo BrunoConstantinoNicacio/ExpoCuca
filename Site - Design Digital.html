@@ -332,6 +332,10 @@
     max-width: 46ch;
   }
 
+  img {
+    border-radius: 15px;
+  }
+
   .conceito-grid p + p { margin-top: 18px; }
 
   .conceito-visual {
@@ -392,6 +396,55 @@
 
   .area-card p {
     color: var(--text-inverse-soft);
+    line-height: 1.65;
+    font-size: 0.98rem;
+    margin: 0;
+  }
+
+  /* ---------- IMPORTÂNCIA ---------- */
+
+  .importancia-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+
+  .importancia-intro {
+    max-width: 62ch;
+    font-size: 1.08rem;
+    line-height: 1.75;
+    color: var(--text-soft);
+    margin-top: 22px;
+  }
+
+  .importancia-card {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-soft);
+    padding: 32px;
+    transition: transform 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  .importancia-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 40px rgba(12, 22, 56, 0.16);
+  }
+
+  .importancia-icon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .importancia-card h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .importancia-card p {
+    color: var(--text-soft);
     line-height: 1.65;
     font-size: 0.98rem;
     margin: 0;
@@ -499,6 +552,7 @@
     .conceito-grid { grid-template-columns: 1fr; }
     .conceito-visual { max-width: 320px; margin: 0 auto; }
     .areas-grid { grid-template-columns: 1fr; }
+    .importancia-grid { grid-template-columns: 1fr; }
     .equipe-list { grid-template-columns: repeat(2, 1fr); }
   }
 
@@ -529,6 +583,7 @@
     <li><a href="#inicio" class="active">Início</a></li>
     <li><a href="#conceito">Conceito</a></li>
     <li><a href="#areas">Áreas</a></li>
+    <li><a href="#importancia">Importância</a></li>
     <li><a href="#equipe">Equipe</a></li>
   </ul>
 </nav>
@@ -543,9 +598,9 @@
     <div class="pixel p4"></div>
     <div class="pixel p5"></div>
   </div>
-  <p class="hero-eyebrow">Exposição escolar</p>
+  <p class="hero-eyebrow">ExpoCuca</p>
   <h1>Design<br>Digital</h1>
-  <p>Como pixels, telas e interfaces se tornaram a linguagem visual do nosso tempo.</p>
+  <p>Tudo sobre o que aprendemos sobre Design Digital na ETECA</p>
   <div class="scroll-cue"><span>role para explorar</span><span class="line"></span></div>
 </section>
 
@@ -556,16 +611,15 @@
   </div>
   <div class="conceito-grid">
     <div class="reveal">
-      <p>Design Digital é a prática de projetar experiências visuais e interativas para telas — sites, aplicativos, jogos e produtos conectados. Ele une estética, tecnologia e comportamento humano em um mesmo processo de criação.</p>
-      <p>Diferente do design impresso, o design digital lida com movimento, resposta e escala: uma mesma peça pode se adaptar a um celular, um computador ou um painel de exposição, mudando de forma sem perder identidade.</p>
+      <p>O Design Digital é a área responsável pela criação e desenvolvimento de elementos visuais para meios digitais, como sites, aplicativos, redes sociais, jogos e outras plataformas.</p>
+      <p>Mais do que apenas criar imagens bonitas, o Design Digital busca transmitir ideias e informações de forma visual, clara e atrativa. Para isso, são utilizados elementos como cores, tipografia, formas, imagens, composição e organização dos conteúdos.</p>
+      <p>No desenvolvimento de sistemas, o Design Digital também possui um papel importante na criação de interfaces, ajudando a tornar sites e aplicativos mais intuitivos, funcionais e agradáveis para o usuário.</p>
+      <p>Assim, o Design Digital une criatividade e tecnologia, transformando ideias em experiências visuais que facilitam a comunicação e a interação das pessoas com o meio digital.</p>
     </div>
     <div class="conceito-visual reveal">
       <div class="grid-card">
-        <svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="10" y="10" width="90" height="90" rx="12" fill="#2453E8" opacity="0.9"/>
-          <rect x="120" y="10" width="90" height="90" rx="12" fill="#4FD8FF" opacity="0.85"/>
-          <rect x="10" y="120" width="90" height="90" rx="12" fill="#4C7CFF" opacity="0.75"/>
-          <circle cx="165" cy="165" r="45" fill="#0C1638" opacity="0.9"/>
+        <svg width="1" height="1" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <img src="https://play-lh.googleusercontent.com/CDdttb_dBXoeygilKolRae_ideVLb2izBHmgZrLO1BKwVNvwMF-lkwR5yVrQ4goYEsjFVOBbUyk77493ap8XZnk" alt="Imagem do Photoshop" height="400px" width="400px">
         </svg>
       </div>
     </div>
@@ -575,28 +629,58 @@
 <section class="section section-dark" id="areas">
   <div class="reveal">
     <p class="eyebrow">Panorama</p>
-    <h2>Áreas do Design Digital</h2>
+    <h2>O que aprendemos em Design Digital?</h2>
   </div>
   <div class="areas-grid">
     <div class="area-card reveal">
       <svg class="area-icon" viewBox="0 0 42 42" fill="none"><rect x="4" y="4" width="34" height="24" rx="4" stroke="#4FD8FF" stroke-width="2"/><path d="M14 34h14" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round"/><path d="M21 28v6" stroke="#4FD8FF" stroke-width="2"/></svg>
-      <h3>UI &amp; UX Design</h3>
-      <p>Planejamento de interfaces e fluxos que tornam sites e aplicativos fáceis de entender e usar.</p>
+      <h3>Fundamentos do Design</h3>
+      <p>Os alunos aprendem conceitos fundamentais de design, como composição, formas, tipografia e organização dos elementos visuais. Esses conhecimentos ajudam a criar materiais equilibrados, claros e visualmente atrativos.</p>
     </div>
     <div class="area-card reveal">
       <svg class="area-icon" viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="16" stroke="#4FD8FF" stroke-width="2"/><path d="M21 13v8l6 4" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round"/></svg>
-      <h3>Motion Design</h3>
-      <p>Animações e transições que dão ritmo, clareza e personalidade às interações na tela.</p>
+      <h3>Ferramentas Digitais</h3>
+      <p>A disciplina também envolve o aprendizado de ferramentas de edição e criação de imagens, como o Photoshop. Com elas, é possível manipular imagens, trabalhar com camadas, aplicar efeitos e desenvolver diferentes tipos de materiais gráficos.</p>
     </div>
     <div class="area-card reveal">
       <svg class="area-icon" viewBox="0 0 42 42" fill="none"><path d="M21 5l16 9v14l-16 9-16-9V14z" stroke="#4FD8FF" stroke-width="2" stroke-linejoin="round"/></svg>
-      <h3>Marca Digital</h3>
-      <p>Construção de identidades visuais pensadas para aparecer em telas, redes sociais e produtos.</p>
+      <h3>Teoria das Cores</h3>
+      <p>A Teoria das Cores ensina como as cores se relacionam e podem ser combinadas para criar diferentes sensações e transmitir mensagens. Também são trabalhados conceitos como contraste, harmonia e destaque, fundamentais para uma boa composição visual.</p>
     </div>
     <div class="area-card reveal">
       <svg class="area-icon" viewBox="0 0 42 42" fill="none"><rect x="6" y="6" width="30" height="30" rx="6" stroke="#4FD8FF" stroke-width="2"/><circle cx="16" cy="16" r="3" fill="#4FD8FF"/><path d="M12 30l8-8 5 5 7-9" stroke="#4FD8FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       <h3>Ilustração Digital</h3>
-      <p>Criação de imagens originais direto em softwares e tablets, para dar identidade visual ao conteúdo.</p>
+      <p>Os conhecimentos adquiridos são aplicados na criação de conteúdos para diferentes meios digitais, como sites, aplicativos, redes sociais e interfaces. O objetivo é unir criatividade, organização e funcionalidade para produzir uma comunicação visual adequada ao usuário.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="importancia">
+  <div class="reveal">
+    <p class="eyebrow">Relevância</p>
+    <h2>Importância do Design Digital na área de tecnologia</h2>
+    <p class="importancia-intro">O Design Digital possui grande importância na área de tecnologia porque a aparência e a forma como um sistema funciona visualmente influenciam diretamente a experiência do usuário. Um site ou aplicativo precisa não apenas funcionar corretamente, mas também ser compreensível, organizado e agradável de utilizar.</p>
+  </div>
+  <div class="importancia-grid">
+    <div class="importancia-card reveal">
+      <span class="importancia-icon">💻</span>
+      <h3>Design e Desenvolvimento</h3>
+      <p>No desenvolvimento de sistemas, conhecimentos de design ajudam programadores e outros profissionais a compreender melhor a criação de interfaces, layouts e experiências digitais. A união entre programação e design contribui para produtos mais funcionais e fáceis de utilizar.</p>
+    </div>
+    <div class="importancia-card reveal">
+      <span class="importancia-icon">👤</span>
+      <h3>Experiência do Usuário</h3>
+      <p>O design também está diretamente relacionado à experiência do usuário (UX). Cores, tipografia, organização das informações, botões e outros elementos visuais podem facilitar ou dificultar a navegação em um sistema.</p>
+    </div>
+    <div class="importancia-card reveal">
+      <span class="importancia-icon">👨‍🎨</span>
+      <h3>Profissionais da área</h3>
+      <p>O mercado possui profissionais especializados em diferentes áreas do design digital. Dieter Rams, conhecido por seus princípios de design funcional e minimalista, influenciou a forma como produtos são projetados. Susan Kare ficou conhecida pelo desenvolvimento de diversos elementos da interface gráfica dos primeiros computadores Macintosh. Já Don Norman teve papel importante na popularização dos conceitos relacionados à experiência do usuário.</p>
+    </div>
+    <div class="importancia-card reveal">
+      <span class="importancia-icon">🚀</span>
+      <h3>Mercado e oportunidades</h3>
+      <p>O conhecimento em Design Digital pode ser aplicado em diversas áreas, como UI/UX Design, desenvolvimento de interfaces, criação de identidades visuais, edição de imagens, publicidade e produção de conteúdo digital. Para estudantes de Desenvolvimento de Sistemas, esse conhecimento pode ampliar as possibilidades de atuação e facilitar a comunicação com profissionais especializados em design.</p>
     </div>
   </div>
 </section>
@@ -611,7 +695,7 @@
     <div class="membro-card reveal"><div class="membro-avatar">AC</div><span>Artur Cho</span></div>
     <div class="membro-card reveal"><div class="membro-avatar">BC</div><span>Bruno Constantino</span></div>
     <div class="membro-card reveal"><div class="membro-avatar">DS</div><span>Denis Sorban</span></div>
-    <div class="membro-card reveal"><div class="membro-avatar">RB</div><span>Rickelmy Bahia</span></div>
+    <div class="membro-card reveal"><div class="membro-avatar">RB</div><span>Miguel Alves</span></div>
   </div>
 </section>
 
@@ -623,7 +707,7 @@
       <span>Artur Cho</span>
       <span>Bruno Constantino</span>
       <span>Denis Sorban</span>
-      <span>Rickelmy Bahia</span>
+      <span>Miguel Alves</span>
     </div>
   </div>
   <div class="footer-bottom">Projeto de exposição escolar — tema Design Digital.</div>
